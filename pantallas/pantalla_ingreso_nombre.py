@@ -1,0 +1,42 @@
+from paquete_datos import *
+
+import pygame
+
+pygame.init()
+
+
+def pantalla_ingreso_nombre():
+    nombre_usuario = ""
+    running = True
+
+    while running:
+        lista_eventos = pygame.event.get()
+
+        for evento in lista_eventos:
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_RETURN:
+                    running = False
+
+                elif evento.key == pygame.K_BACKSPACE:
+                    nombre_usuario = nombre_usuario[:-1]
+
+                else:
+                    nombre_usuario += evento.unicode
+
+        pantalla.blit(screen_escribir_nombre, (0, 0))
+
+
+        titulo = fuente_titulo.render("Nombre:", True, COLOR_NEGRO)
+        pantalla.blit(titulo, (100, 100))
+
+        # muestra lo q va escribiendo
+        texto_nombre = fuente_titulo.render(nombre_usuario, True, COLOR_NEGRO)
+        pantalla.blit(texto_nombre, (100, 200))
+
+        pygame.display.flip()
+
+    return nombre_usuario
