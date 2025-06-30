@@ -3,6 +3,8 @@ import copy
 from paquete_datos import *
 from paquete_func.manejo_preguntas import *
 from paquete_func.preguntar_si_seguir import *
+from paquete_func.calcular_posicion import *
+from paquete_func.informar_posicion import *
 
 
 def jugar_partida():
@@ -13,6 +15,7 @@ def jugar_partida():
 
     pregunta_y_respuestas = elegir_pregunta_aleatoria(lista_preguntas_copia)
     
+    posicion = 15
 
     estado_feedback = ""
     tiempo_feedback = 0
@@ -31,11 +34,22 @@ def jugar_partida():
 
                 for rect, letra in botones_respuesta:
                     if rect.collidepoint(mouse_x, mouse_y):
+
                         if letra == pregunta_y_respuestas["respuesta_correcta"]:
                             estado_feedback = "Correcta"
+                            respuesta_correcta = True
 
                         else:
-                            estado_feedback = "Incorrecta"               
+                            estado_feedback = "Incorrecta" 
+                            respuesta_correcta = False    
+
+
+                        posicion_previa = posicion
+
+                        posicion = calcular_nueva_posicion(posicion, respuesta_correcta, tablero_valores)
+
+                        mensaje_movimiento = informar_posicion(posicion_previa, posicion)
+
                     
                         tiempo_feedback = pygame.time.get_ticks()
 
@@ -89,25 +103,30 @@ def jugar_partida():
 
 
         if estado_feedback != "":
+
             tiempo_actual = pygame.time.get_ticks()
+
             if tiempo_actual - tiempo_feedback < 1000:
                 # mostrar cartel por 1 seg
                 if estado_feedback == "Correcta":
                     texto_feedback = "Correcto! "
                     color_feedback = COLOR_VERDE
+
                 else:
                     texto_feedback = "Incorrecto!"
                     color_feedback = COLOR_ROJO
 
-                rect_feedback = pygame.Rect(x_boton_opcion + ancho_boton + 10, y_primera_opcion, 250, 70)
-
+                rect_feedback = pygame.Rect(x_boton_opcion + ancho_boton + 10, y_primera_opcion, 300, 110)
                 pygame.draw.rect(pantalla, color_feedback, rect_feedback, border_radius = 5)
 
-                fuente_feedback = pygame.font.SysFont("Century Gothic", 30)
 
+                # mensaje de correcto/incorrecto
                 texto_render = fuente_feedback.render(texto_feedback, True, COLOR_BLANCO)
-
                 pantalla.blit(texto_render, (rect_feedback.x + 10, rect_feedback.y + 15))
+
+                # mensaje de movimiento 
+                texto_casillas_extra = fuente_feedback.render(mensaje_movimiento, True, COLOR_BLANCO)
+                pantalla.blit(texto_casillas_extra, (rect_feedback.x + 10, rect_feedback.y + 50))
             
             else:
                
@@ -126,7 +145,6 @@ def jugar_partida():
                     else:
                         running = False
 
-
                 estado_feedback = ""
 
         pygame.display.flip()
@@ -134,9 +152,7 @@ def jugar_partida():
 
     pantalla.fill(COLOR_FONDO_JUEGO)
 
-    fuente_final = pygame.font.SysFont("Century Gothic", 40)
-
-    texto = fuente_final.render('Gracias por jugar! Volviendo al menu ...', True, COLOR_BLANCO)
+    texto = fuente_despedida.render('Gracias por jugar! Volviendo al menu ...', True, COLOR_BLANCO)
 
     pantalla.blit(texto, (ANCHO_VENTANA // 2 - texto.get_width() // 2, ALTO_VENTANA // 2 - texto.get_height() // 2))
     pygame.display.flip()

@@ -2,8 +2,7 @@ import pygame
 from paquete_datos import *
 
 def preguntar_si_seguir():
-    fuente_pregunta = pygame.font.SysFont("Century Gothic", 30)
-    pregunta = fuente_pregunta.render("¿Queres seguir jugando?", True, COLOR_BLANCO)
+    pregunta = fuente_seguir.render("¿Queres seguir jugando?", True, COLOR_BLANCO)
 
     ancho_boton = 120
     alto_boton = 50
@@ -17,8 +16,8 @@ def preguntar_si_seguir():
     boton_si = pygame.Rect(x_inicio_botones, y_boton, ancho_boton, alto_boton)
     boton_no = pygame.Rect(x_inicio_botones + ancho_boton + espacio_entre_botones, y_boton, ancho_boton, alto_boton)
 
-    texto_si = fuente_pregunta.render("SI", True, COLOR_BLANCO)
-    texto_no = fuente_pregunta.render("NO", True, COLOR_BLANCO)
+    texto_si = fuente_seguir.render("SI", True, COLOR_BLANCO)
+    texto_no = fuente_seguir.render("NO", True, COLOR_BLANCO)
 
 
     respuesta = None

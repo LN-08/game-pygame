@@ -19,12 +19,12 @@ while running_prog:
     # dibuja la imagen desde la esquina superior izquierda
 
     pantalla.blit(titulo_menu, (100, 100)) 
-    # Muestro el titulo
+    # muestro el titulo
 
-    # Muestro los botones
-    pantalla.blit(boton_jugar, (200, 250)) 
-    pantalla.blit(boton_ver_puntaje, (200, 350))
-    pantalla.blit(boton_exit, (200, 450))
+    # muestro los botones
+    pantalla.blit(boton_jugar, (180, 250)) 
+    pantalla.blit(boton_ver_puntaje, (180, 350))
+    pantalla.blit(boton_exit, (180, 450))
 
     for evento in lista_eventos:
         if evento.type == pygame.QUIT:

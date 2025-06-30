@@ -30,12 +30,12 @@ def pantalla_ingreso_nombre():
         pantalla.blit(screen_escribir_nombre, (0, 0))
 
 
-        titulo = fuente_titulo.render("Nombre:", True, COLOR_NEGRO)
+        titulo = fuente_pedir_nombre.render("Nombre:", True, COLOR_NEGRO)
         pantalla.blit(titulo, (100, 100))
 
         # muestra lo q va escribiendo
-        texto_nombre = fuente_titulo.render(nombre_usuario, True, COLOR_NEGRO)
-        pantalla.blit(texto_nombre, (100, 200))
+        texto_nombre = fuente_escribir_nombre.render(nombre_usuario, True, COLOR_NEGRO)
+        pantalla.blit(texto_nombre, (100, 300))
 
         pygame.display.flip()
 
