@@ -45,9 +45,9 @@ def jugar_partida(nombre_del_usuario):
 
             elif evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
 
-                # para evitar que responda muchas veces la misma pregunta mientras muestro feedback
+                # evita que responda muchas veces la misma pregunta mientras muestro feedback
                 if estado_feedback != "":
-                    continue
+                    continue # salta el resto del codigo del mismo bucle y vuelve a iniciar la prox iteracion
 
                 if boton_salir.collidepoint(evento.pos):
                     mensaje_final = f"Saliste del juego {nombre_del_usuario}, quedaste en la posicion {posicion}"
@@ -94,8 +94,8 @@ def jugar_partida(nombre_del_usuario):
 
                         break  # ya hizo clic, salimos del for
 
-                            
-        pantalla.fill(COLOR_FONDO_JUEGO)
+        # redibuja cada frame                    
+        pantalla.fill(COLOR_FONDO_JUEGO) 
         pantalla.blit(imagen_tablero, (x_tablero, y_tablero))
 
 
@@ -165,7 +165,7 @@ def jugar_partida(nombre_del_usuario):
 
             tiempo_actual = pygame.time.get_ticks()
 
-            if tiempo_actual - tiempo_inicio_pregunta >= TIEMPO_LIMITE_PREGUNTA: # si se agoto el tiempo
+            if tiempo_actual - tiempo_inicio_pregunta >= TIEMPO_LIMITE_PREGUNTA: 
                 estado_feedback = "Incorrecta"
                 respuesta_correcta = False
                 posicion_previa = posicion
@@ -217,7 +217,7 @@ def jugar_partida(nombre_del_usuario):
                 estado_feedback = ""
 
 
-        pygame.display.flip()
+        pygame.display.flip() # actualiza la pantalla
     
 
     pantalla.fill(COLOR_FONDO_JUEGO)
